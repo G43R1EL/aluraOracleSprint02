@@ -49,7 +49,7 @@ var timer = setInterval(
 );
 
 function drawHangman () {
-    attemps < 10 ? attemps++ : endGame();
+    attemps < 10 & attemps++;
     refreshAttempsLeft();
     for (let step = 0; step <= attemps; step++ ) {
         switch (step) {
@@ -142,18 +142,37 @@ function endGame(won=false) {
     const container__main = document.querySelector('.container__main');
     const wonTitle = document.createElement('h2');
     const lostTitle = document.createElement('h2');
+    const restartBtn = document.createElement('button');
     wonTitle.classList.add('game__won');
     wonTitle.textContent = '¡Ganaste!';
     lostTitle.classList.add('game__lost');
     lostTitle.textContent = '¡Perdiste!';
+    restartBtn.classList.add('game__restart');
+    restartBtn.textContent = 'Reiniciar';
+    restartBtn.addEventListener('click', () => { window.location.reload(); });
     overlay.classList.add('game__overlay');
     container__main.appendChild(overlay);
     won ? overlay.appendChild(wonTitle) : overlay.appendChild(lostTitle);
+    overlay.appendChild(restartBtn);
     clearInterval(timer);
 }
 
 function refreshAttempsLeft() {
     attempsLeft.textContent = 10 - attemps;
+    parseInt(attempsLeft.textContent) == 0 ? endGame() : null;
+}
+
+function checkCompletition() {
+    let completed = true;
+    gameLetters.forEach(letter => {
+        console.log(letter);
+        if (letter.classList.contains('game__hidden')) {
+            completed = false;
+        }
+    });
+    if (completed) {
+        endGame(true);
+    }
 }
 
 function addEventListeners() {
@@ -163,6 +182,9 @@ function addEventListeners() {
             }
         );
     }
+    document.addEventListener('keydown', function(e) {
+        tryLetter(e.key);
+    });
 }
 
 function removeEventListener(letter, wrong=false) {
@@ -180,6 +202,7 @@ function tryLetter(letter) {
         for (let len=0; len<gameWord.length; len++) {
             if (gameWord.charAt(len) == letter ) {
                 gameLetters[len].classList.add('game__visible');
+                gameLetters[len].classList.remove('game__hidden');
             }
         }
         removeEventListener(letter);
@@ -187,6 +210,7 @@ function tryLetter(letter) {
         removeEventListener(letter, true);
         drawHangman();
     }
+    checkCompletition();
 }
 
 function drawWordContainer() {
