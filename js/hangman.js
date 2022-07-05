@@ -165,7 +165,6 @@ function refreshAttempsLeft() {
 function checkCompletition() {
     let completed = true;
     gameLetters.forEach(letter => {
-        console.log(letter);
         if (letter.classList.contains('game__hidden')) {
             completed = false;
         }
@@ -214,7 +213,6 @@ function tryLetter(letter) {
 }
 
 function drawWordContainer() {
-    console.log(gameWord);
     for (let i=0; i<gameWord.length; i++) {
         let letter = document.createElement('div');
         letter.classList.add('game__letter');
