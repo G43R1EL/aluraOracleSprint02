@@ -1,0 +1,29 @@
+{
+  "name": "challengeahorcado2",
+  "version": "1.0.0",
+  "description": "Alura Latam - Sprint 02",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "node-sass --include-path scss sass/main.scss css/style.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/G43R1EL/aluraOracleSprint02.git"
+  },
+  "keywords": [
+    "hangman",
+    "game"
+  ],
+  "author": "Nelson Gabriel Hernández",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/G43R1EL/aluraOracleSprint02/issues"
+  },
+  "homepage": "https://github.com/G43R1EL/aluraOracleSprint02#readme",
+  "dependencies": {
+    "node-sass": "^7.0.1",
+    "nodemon": "^2.0.16"
+  }
+}

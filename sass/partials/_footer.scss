@@ -1,0 +1,14 @@
+footer {
+    text-align: center;
+    background-color: black;
+    .arch {
+        height: 50%;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        background-color: white;
+    }
+    p {
+        padding-top: .5rem;
+        color: white;
+    }
+}
