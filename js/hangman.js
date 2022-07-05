@@ -197,19 +197,22 @@ function removeEventListener(letter, wrong=false) {
 }
 
 function tryLetter(letter) {
-    if (String(gameWord).includes(letter)) {
-        for (let len=0; len<gameWord.length; len++) {
-            if (gameWord.charAt(len) == letter ) {
-                gameLetters[len].classList.add('game__visible');
-                gameLetters[len].classList.remove('game__hidden');
+    if (!keys.find(key => key == letter)) {
+        keys.push(letter);
+        if (String(gameWord).includes(letter)) {
+            for (let len=0; len<gameWord.length; len++) {
+                if (gameWord.charAt(len) == letter ) {
+                    gameLetters[len].classList.add('game__visible');
+                    gameLetters[len].classList.remove('game__hidden');
+                }
             }
+            removeEventListener(letter);
+        } else {
+            removeEventListener(letter, true);
+            drawHangman();
         }
-        removeEventListener(letter);
-    } else {
-        removeEventListener(letter, true);
-        drawHangman();
+        checkCompletition();
     }
-    checkCompletition();
 }
 
 function drawWordContainer() {
@@ -232,6 +235,7 @@ const gameLetters = document.querySelectorAll('.game__letter');
 const canvas = document.querySelector('#game__canvas');
 const vKeys = document.querySelectorAll('.game__vkey');
 const ctx = canvas.getContext('2d');
+let keys = [];
 document.onkeyup = (event)=>{tryLetter(event.key)};
 drawHangman();
 addEventListeners();
